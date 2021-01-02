@@ -8,6 +8,9 @@ module.exports = {
     if (!targetUser) {
       return res.status(400).json({ error: 'Dev not exists' });
     }
+    if (targetUser.likes.includes(loggedUser._id)) {
+      console.log("DEU MATCH");
+    }
     loggedUser.likes.push(targetUser._id);
     await loggedUser.save();
     return res.json(loggedUser);
