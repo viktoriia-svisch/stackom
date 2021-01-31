@@ -7,7 +7,7 @@ export default function Login() {
       <form>
         <img src={logo} alt="Tindev"/>
         <input placeholder="Digite seu usuário do Github" />
-        <button type="submit"></button>
+        <button type="submit">Enviar</button>
       </form>
     </div>
   );
