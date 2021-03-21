@@ -14,12 +14,12 @@ export default function Main({ match }) {
           user: match.params.id,
         }
       });
-      setUsers(response);
+      setUsers(response.data);
     }
     loadUsers();
   }, [ match.params.id ]);
   async function handleLike(id) {
-    await api.post(`/${id}/like`, null, {
+    await api.post(`/devs/${id}/like`, null, {
       headers: {
         user: match.params.id
       },
@@ -27,7 +27,7 @@ export default function Main({ match }) {
     setUsers(users.filter((user) => user._id !== id));
   }
   async function handleDislike(id) {
-    await api.post(`/${id}/dislike`, null, {
+    await api.post(`/devs/${id}/dislike`, null, {
       headers: {
         user: match.params.id
       },
