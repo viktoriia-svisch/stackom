@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, Image, TextInput,
-  TouchableOpacity, Text } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Image, TextInput,
+  TouchableOpacity, Text, Platform } from 'react-native';
 import logo from '../assets/logo.png';
 export default function Login() {
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior="padding"
+      enabled={Platform.OS === 'ios'}
+      style={styles.container}
+    >
       <Image source={logo}/>
       <TextInput
+        autoCapitalize="none"
+        autoCorrect={false}
         placeholder="Digite seu usuário do Github"
         placeholderTextColor='#999'
         style={styles.input}
@@ -14,7 +20,7 @@ export default function Login() {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
