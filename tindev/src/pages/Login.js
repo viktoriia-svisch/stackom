@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Image, TextInput,
   TouchableOpacity, Text, Platform } from 'react-native';
+import api from '../services/api';
 import logo from '../assets/logo.png';
 export default function Login({ navigation}) {
   const [ user, setUser ] = useState('');
-  function handleLogin() {
-    console.log(user);
-    navigation.navigate('Main');
+  async function handleLogin() {
+    const response = await api.post('/devs', { username: user });
+    const { _id } = response.data;
+    console.log(_id);
+    navigation.navigate('Main', { _id });
   }
   return (
     <KeyboardAvoidingView
