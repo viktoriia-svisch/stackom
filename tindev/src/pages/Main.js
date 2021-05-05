@@ -20,21 +20,23 @@ export default function Main({ navigation }) {
     }
     loadUsers();
   }, [ id ]);
-  async function handleLike(id) {
-    await api.post(`/devs/${id}/like`, null, {
+  async function handleLike() {
+    const [user, ...rest] = users;
+    await api.post(`/devs/${user._id}/like`, null, {
       headers: {
         user: id
       },
     });
-    setUsers(users.filter((user) => user._id !== id));
+    setUsers(rest);
   }
-  async function handleDislike(id) {
-    await api.post(`/devs/${id}/dislike`, null, {
+  async function handleDislike() {
+    const [user, ...rest] = users;
+    await api.post(`/devs/${user._id}/dislike`, null, {
       headers: {
         user: id
       },
     });
-    setUsers(users.filter((user) => user._id !== id));
+    setUsers(rest);
   }
   async function handleLogout() {
     await AsyncStorage.clear();
@@ -59,10 +61,10 @@ export default function Main({ navigation }) {
         ))) }
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleDislike}>
           <Image source={dislike} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLike}>
           <Image source={like} />
         </TouchableOpacity>
       </View>
