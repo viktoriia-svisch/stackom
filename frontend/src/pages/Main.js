@@ -6,10 +6,10 @@ import api from '../services/api';
 import logo from '../assets/logo.svg';
 import like from '../assets/like.svg';
 import dislike from '../assets/dislike.svg';
-import itsamatch from '../asset/itsamatch.png';
+import itsamatch from '../assets/itsamatch.png';
 export default function Main({ match }) {
   const [ users, setUsers ] = useState([]);
-  const [ matchDev, setMatchDev ] = useState(1);
+  const [ matchDev, setMatchDev ] = useState(true);
   useEffect(() => {
     async function loadUsers() {
       const response = await api.get('/devs', {
@@ -23,9 +23,10 @@ export default function Main({ match }) {
   }, [ match.params.id ]);
   useEffect(() => {
     const socket = io('http:
-      query: { user: match.params.id },
+      query: { user: match.params.id }
     });
     socket.on('match', dev => {
+      console.log("aaaa");
     });
   }, [ match.params.id ]);
   async function handleLike(id) {
@@ -71,15 +72,15 @@ export default function Main({ match }) {
       ) : (
         <div className="empty"> Acabou :( </div>
       )}
+      { matchDev && (
+        <div className="match-container">
+          <img src={itsamatch} alt="It's a match" />
+          <img className="avatar" src="" alt="" />
+          <strong></strong>
+          <p></p>
+          <button type="button">FECHAR</button>
+        </div>
+      ) }
     </div>
-    { matchDev && (
-      <div className="match-container">
-        <img src={itsamatch} alt="It's a match" />
-        <img className="avatar" src= alt= />
-        <strong></strong>
-        <p></p>
-        <button type="button"></button>
-      </div>
-    ) }
   );
 }
