@@ -78,7 +78,7 @@ export default function Main({ match }) {
           <img className="avatar" src="" alt="" />
           <strong></strong>
           <p></p>
-          <button type="button">FECHAR</button>
+          <button type="button" onClick={() => setMatchDev(null)}>FECHAR</button>
         </div>
       ) }
     </div>
