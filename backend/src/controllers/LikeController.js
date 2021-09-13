@@ -11,11 +11,11 @@ module.exports = {
     if (targetUser.likes.includes(loggedUser._id)) {
       const loggedSocket = req.connectedUsers[user];
       const targetSocket = req.connectedUsers[targetUser];
-      if (loggedUser) {
-        req.io.to(loggedUser).emit('match', targetDev);
+      if (loggedSocket) {
+        req.io.to(loggedUser).emit('match', targetUser);
       }
-      if (targetUser) {
-        req.io.to(targetUser).emit('match', loggedDev);
+      if (targetSocket) {
+        req.io.to(targetUser).emit('match', user);
       }
     }
     loggedUser.likes.push(targetUser._id);
