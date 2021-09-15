@@ -10,12 +10,12 @@ module.exports = {
     }
     if (targetUser.likes.includes(loggedUser._id)) {
       const loggedSocket = req.connectedUsers[user];
-      const targetSocket = req.connectedUsers[targetUser];
+      const targetSocket = req.connectedUsers[devId];
       if (loggedSocket) {
-        req.io.to(loggedUser).emit('match', targetUser);
+        req.io.to(loggedSocket).emit('match', targetUser);
       }
       if (targetSocket) {
-        req.io.to(targetUser).emit('match', user);
+        req.io.to(targetSocket).emit('match', loggedUser);
       }
     }
     loggedUser.likes.push(targetUser._id);

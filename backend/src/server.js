@@ -13,12 +13,12 @@ io.on('connect', (socket) => {
 mongoose.connect('mongodb+srv:
   useNewUrlParser: true
 });
+app.use(cors());
+app.use(express.json());
 app.use((req,res,next) => {
   req.io = io;
   req.connectedUsers = connectedUsers;
   return next();
 });
-app.use(cors());
-app.use(express.json());
 app.use(routes);
 server.listen(3333);
