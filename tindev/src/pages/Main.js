@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import AsyncStorage from '@react-native-community/async-storage';
 import { SafeAreaView, Image, StyleSheet, View, Text,
   TouchableOpacity } from 'react-native';
@@ -9,6 +10,7 @@ import like from '../assets/like.png';
 export default function Main({ navigation }) {
   const id = navigation.getParam('user');
   const [ users, setUsers ] = useState([]);
+  const [ matchDev, setMatchDev ] = useState(true);
   useEffect(() => {
     async function loadUsers() {
       const response = await api.get('/devs', {
@@ -19,6 +21,14 @@ export default function Main({ navigation }) {
       setUsers(response.data);
     }
     loadUsers();
+  }, [ id ]);
+  useEffect(() => {
+    const socket = io('http:
+      query: { user: id }
+    });
+    socket.on('match', dev => {
+      setMatchDev(dev);
+    });
   }, [ id ]);
   async function handleLike() {
     const [user, ...rest] = users;
